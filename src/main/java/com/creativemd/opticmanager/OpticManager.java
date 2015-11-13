@@ -13,6 +13,8 @@ import cpw.mods.fml.common.LoadController;
 import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.event.FMLConstructionEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayer.EnumChatVisibility;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -38,6 +40,7 @@ public class OpticManager extends DummyModContainer{
 	
 	public static boolean renderNameTag = true;
 	public static float brightness = 1F;
+	public static EntityPlayer.EnumChatVisibility visibilty;
 	
 	//public static String[] settingNames = {"-500%", "-200%", "-100%", "-50%", "-25%", "100%", "150%", "200%", "500%"};
 	//public static float[] settings = {};

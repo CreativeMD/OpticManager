@@ -16,16 +16,20 @@ public class OpticEventHandler {
 	}
 	
 	public static float defaultGammaSetting;
+	public Minecraft mc = Minecraft.getMinecraft();
 	
 	@SubscribeEvent
 	public void renderTick(RenderTickEvent event)
 	{
 		if(event.phase == Phase.START)
 		{
-			defaultGammaSetting = Minecraft.getMinecraft().gameSettings.gammaSetting;
-			Minecraft.getMinecraft().gameSettings.gammaSetting = OpticManager.brightness;
+			defaultGammaSetting = mc.gameSettings.gammaSetting;
+			mc.gameSettings.gammaSetting = OpticManager.brightness;
 		}else{
-			Minecraft.getMinecraft().gameSettings.gammaSetting = defaultGammaSetting;
+			mc.gameSettings.gammaSetting = defaultGammaSetting;
+			
+			if(mc.gameSettings.chatVisibility != OpticManager.visibilty)
+				mc.gameSettings.chatVisibility = OpticManager.visibilty;
 		}
 	}
 	
