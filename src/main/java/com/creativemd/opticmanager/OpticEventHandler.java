@@ -4,6 +4,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer.EnumChatVisibility;
 import net.minecraftforge.client.event.RenderLivingEvent;
 
 public class OpticEventHandler {
@@ -28,7 +29,9 @@ public class OpticEventHandler {
 		}else{
 			mc.gameSettings.gammaSetting = defaultGammaSetting;
 			
-			if(mc.gameSettings.chatVisibility != OpticManager.visibilty)
+			if(OpticManager.visibilty == null)
+				OpticManager.visibilty = EnumChatVisibility.FULL;
+			if(OpticManager.visibilty != null && mc.gameSettings.chatVisibility != OpticManager.visibilty)
 				mc.gameSettings.chatVisibility = OpticManager.visibilty;
 		}
 	}

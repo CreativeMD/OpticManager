@@ -29,7 +29,7 @@ public class OpticManager{
 	
 	public static boolean renderNameTag = true;
 	public static float brightness = 1F;
-	public static EntityPlayer.EnumChatVisibility visibilty;
+	public static EntityPlayer.EnumChatVisibility visibilty = EnumChatVisibility.FULL;
 	
 	public ModTab tab;
 	
