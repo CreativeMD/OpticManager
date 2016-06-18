@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayer.EnumChatVisibility;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -23,14 +24,40 @@ public class OpticManager{
 	public static float brightness = 1F;
 	public static EntityPlayer.EnumChatVisibility visibilty = EnumChatVisibility.FULL;
 	
-	public ModTab tab;
+	private static int dayDuration = 12000;
+	private static int nightDuration = 12000;
+	
+	public static void setDuration(int dayDuration, int nightDuration)
+	{
+		OpticManager.dayDuration = dayDuration;
+		OpticManager.nightDuration = nightDuration;
+	}
+	
+	public static int getTotalDayDuration()
+	{
+		return dayDuration + nightDuration;
+	}
+	
+	public static int getDayDuration()
+	{
+		return dayDuration;
+	}
+	
+	public static int getNightDuration()
+	{
+		return nightDuration;
+	}
+	
+	public static ModTab tab;
+	
+	
 	
 	@EventHandler
 	public void init(FMLInitializationEvent evt) {
 		
 		if(FMLCommonHandler.instance().getEffectiveSide().isClient())
 		{
-			FMLCommonHandler.instance().bus().register(new OpticEventHandler());
+			//FMLCommonHandler.instance().bus().register(new OpticEventHandler());
 			MinecraftForge.EVENT_BUS.register(new OpticEventHandler());
 		}
 		

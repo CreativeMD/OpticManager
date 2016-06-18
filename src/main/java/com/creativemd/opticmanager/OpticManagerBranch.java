@@ -6,6 +6,7 @@ import com.creativemd.ingameconfigmanager.api.common.branch.ConfigBranch;
 import com.creativemd.ingameconfigmanager.api.common.branch.ConfigSegmentCollection;
 import com.creativemd.ingameconfigmanager.api.common.segment.BooleanSegment;
 import com.creativemd.ingameconfigmanager.api.common.segment.FloatSliderSegment;
+import com.creativemd.ingameconfigmanager.api.common.segment.IntegerSegment;
 import com.creativemd.ingameconfigmanager.api.common.segment.SelectSegment;
 
 import net.minecraft.client.Minecraft;
@@ -38,6 +39,8 @@ public class OpticManagerBranch extends ConfigBranch{
 		segments.add(new BooleanSegment("nametag", "Show Nametag", false));
 		segments.add(new FloatSliderSegment("brightness", "Brightness", 0F, -1F, 1));
 		segments.add(new SelectSegment("chat", "Chat Visibilty", 0, "Shown", "Only Commands", "Hidden"));
+		segments.add(new IntegerSegment("dayDuration", "Day duration", 12000, 1, Integer.MAX_VALUE));
+		segments.add(new IntegerSegment("nightDuration", "Night duration", 12000, 1, Integer.MAX_VALUE));
 	}
 
 	@Override
@@ -52,6 +55,7 @@ public class OpticManagerBranch extends ConfigBranch{
 		if(OpticManager.brightness > 0)
 			OpticManager.brightness++;
 		OpticManager.visibilty = EntityPlayer.EnumChatVisibility.getEnumChatVisibility(((SelectSegment) collection.getSegmentByID("chat")).getIndex());
+		OpticManager.setDuration((Integer) collection.getSegmentValue("dayDuration"), (Integer) collection.getSegmentValue("nightDuration"));
 		if(FMLCommonHandler.instance().getEffectiveSide().isClient())
 			receiveClient();
 	}
