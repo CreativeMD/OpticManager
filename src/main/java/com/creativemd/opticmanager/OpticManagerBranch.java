@@ -5,18 +5,16 @@ import com.creativemd.creativecore.client.avatar.AvatarItemStack;
 import com.creativemd.ingameconfigmanager.api.common.branch.ConfigBranch;
 import com.creativemd.ingameconfigmanager.api.common.branch.ConfigSegmentCollection;
 import com.creativemd.ingameconfigmanager.api.common.segment.BooleanSegment;
-import com.creativemd.ingameconfigmanager.api.common.segment.FloatSegment;
 import com.creativemd.ingameconfigmanager.api.common.segment.FloatSliderSegment;
 import com.creativemd.ingameconfigmanager.api.common.segment.SelectSegment;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class OpticManagerBranch extends ConfigBranch{
 
@@ -27,7 +25,7 @@ public class OpticManagerBranch extends ConfigBranch{
 	@Override
 	@SideOnly(Side.CLIENT)
 	protected Avatar getAvatar() {
-		return new AvatarItemStack(new ItemStack(Items.clock));
+		return new AvatarItemStack(new ItemStack(Items.CLOCK));
 	}
 
 	@Override
