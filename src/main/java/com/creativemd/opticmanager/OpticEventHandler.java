@@ -16,6 +16,7 @@ public class OpticEventHandler {
 	public static final long vanillaHalfDuration = 12000;
 	
 	public long lastWorldTime = -1;
+	public long lastTotalWorldTime = -1;
 	public long realWorldTime;
 	
 	public void assignTime(long worldTime)
@@ -52,11 +53,13 @@ public class OpticEventHandler {
 					event.world.setWorldTime((long) (realWorldTime/(float)OpticManager.getDayDuration()*vanillaHalfDuration));
 				else
 					event.world.setWorldTime((long) ((realWorldTime-OpticManager.getDayDuration())/(float)OpticManager.getNightDuration()*vanillaHalfDuration+vanillaHalfDuration));
+				event.world.setTotalWorldTime(event.world.getTotalWorldTime() + expectedWorldTime-event.world.getWorldTime());
 			}else{
 				//System.out.println("expected: " + expectedWorldTime + " given:" + event.world.getWorldTime());
 				assignTime(event.world.getWorldTime());
 			}
 			lastWorldTime = event.world.getWorldTime();
+			lastTotalWorldTime = event.world.getTotalWorldTime();
 			//System.out.println("needed time: " + (System.currentTimeMillis()-timeBefore));
 		}
 	}
