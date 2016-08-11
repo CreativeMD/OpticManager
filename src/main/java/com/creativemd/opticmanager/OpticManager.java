@@ -57,11 +57,7 @@ public class OpticManager{
 	@EventHandler
 	public void init(FMLInitializationEvent evt) {
 		
-		if(FMLCommonHandler.instance().getEffectiveSide().isClient())
-		{
-			//FMLCommonHandler.instance().bus().register(new OpticEventHandler());
-			MinecraftForge.EVENT_BUS.register(new OpticEventHandler());
-		}
+		MinecraftForge.EVENT_BUS.register(new OpticEventHandler());
 		
 		tab = new ModTab("Optic", new ItemStack(Items.CLOCK));
 		tab.addBranch(new OpticManagerBranch());
