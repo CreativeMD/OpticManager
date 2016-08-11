@@ -17,11 +17,14 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 public class OpticManager{
 	
 	public static final String modid = "opticmanager";
-	public static final String version = "0.1";
+	public static final String version = "1.0";
 	
 	public static boolean renderNameTag = true;
 	public static float brightness = 1F;
-	public static EntityPlayer.EnumChatVisibility visibilty = EnumChatVisibility.FULL;
+	
+	/**0: FULL, 1:SYSTEM, 2:HIDDEN*/
+	public static int visibility = 0;
+	//public static EntityPlayer.EnumChatVisibility visibilty = EnumChatVisibility.FULL;
 	
 	private static int dayDuration = 12000;
 	private static int nightDuration = 12000;

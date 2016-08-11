@@ -84,10 +84,10 @@ public class OpticEventHandler {
 		}else{
 			mc.gameSettings.gammaSetting = defaultGammaSetting;
 			
-			if(OpticManager.visibilty == null)
-				OpticManager.visibilty = EnumChatVisibility.FULL;
-			if(OpticManager.visibilty != null && mc.gameSettings.chatVisibility != OpticManager.visibilty)
-				mc.gameSettings.chatVisibility = OpticManager.visibilty;
+			/*if(OpticManager.visibility )
+				OpticManager.visibility = EnumChatVisibility.FULL;*/
+			//if(OpticManager.visibility != null && mc.gameSettings.chatVisibility != OpticManager.visibility)
+			mc.gameSettings.chatVisibility = EnumChatVisibility.getEnumChatVisibility(OpticManager.visibility);
 		}
 	}
 	

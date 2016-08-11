@@ -11,6 +11,7 @@ import com.creativemd.ingameconfigmanager.api.common.segment.SelectSegment;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayer.EnumChatVisibility;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -54,7 +55,7 @@ public class OpticManagerBranch extends ConfigBranch{
 		OpticManager.brightness = (Float) collection.getSegmentValue("brightness");
 		if(OpticManager.brightness > 0)
 			OpticManager.brightness++;
-		OpticManager.visibilty = EntityPlayer.EnumChatVisibility.getEnumChatVisibility(((SelectSegment) collection.getSegmentByID("chat")).getIndex());
+		OpticManager.visibility = ((SelectSegment) collection.getSegmentByID("chat")).getIndex();
 		OpticManager.setDuration((Integer) collection.getSegmentValue("dayDuration"), (Integer) collection.getSegmentValue("nightDuration"));
 		if(FMLCommonHandler.instance().getEffectiveSide().isClient())
 			receiveClient();
@@ -63,7 +64,7 @@ public class OpticManagerBranch extends ConfigBranch{
 	@SideOnly(Side.CLIENT)
 	public void receiveClient()
 	{
-		Minecraft.getMinecraft().gameSettings.chatVisibility = OpticManager.visibilty;
+		Minecraft.getMinecraft().gameSettings.chatVisibility = EnumChatVisibility.getEnumChatVisibility(OpticManager.visibility);
 	}
 	
 }
