@@ -68,7 +68,7 @@ public class OpticEventHandler {
 	public void tick(ClientTickEvent event)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
-		if(mc.theWorld != null)
+		if(event.phase == Phase.END && mc.theWorld != null)
 			changeTick(mc.theWorld);
 	}
 	
@@ -92,16 +92,17 @@ public class OpticEventHandler {
 			realWorldTimeClient = realWorldTimeClient % OpticManager.getTotalDayDuration();
 			//System.out.println(realWorldTime);
 			if(isDay(realWorldTimeClient, OpticManager.getDayDuration(), OpticManager.getNightDuration()))
-				world.setWorldTime((long) (realWorldTimeClient/(float)OpticManager.getDayDuration()*vanillaHalfDuration));
+				world.setWorldTime((long) (realWorldTimeClient/(float)OpticManager.getDayDuration()*(float)vanillaHalfDuration));
 			else
 				world.setWorldTime((long) ((realWorldTimeClient-OpticManager.getDayDuration())/(float)OpticManager.getNightDuration()*vanillaHalfDuration+vanillaHalfDuration));
 			world.setTotalWorldTime(world.getTotalWorldTime() + expectedWorldTime-world.getWorldTime());
 		}else{
-			//System.out.println("expected: " + expectedWorldTime + " given:" + event.world.getWorldTime());
+			//System.out.println("expected: " + expectedWorldTime + " given:" + world.getWorldTime());
 			assignTimeClient(world.getWorldTime());
 		}
 		lastWorldTimeClient = world.getWorldTime();
 		lastTotalWorldTimeClient = world.getTotalWorldTime();
+		//System.out.println("Client tick time=" + lastWorldTimeClient);
 		//System.out.println("needed time: " + (System.currentTimeMillis()-timeBefore));
 	}
 	
