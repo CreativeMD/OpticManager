@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
-@Mod(modid = OpticManager.modid, version = OpticManager.version, name = "OpticManager")
+@Mod(modid = OpticManager.modid, version = OpticManager.version, name = "OpticManager",acceptedMinecraftVersions="")
 public class OpticManager{
 	
 	public static final String modid = "opticmanager";
