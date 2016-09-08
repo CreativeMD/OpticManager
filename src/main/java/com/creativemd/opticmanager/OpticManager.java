@@ -19,7 +19,7 @@ public class OpticManager{
 	public static final String modid = "opticmanager";
 	public static final String version = "1.0";
 	
-	public static boolean renderNameTag = true;
+	public static boolean renderPlayerNameTag = true;
 	public static float brightness = 1F;
 	
 	/**0: FULL, 1:SYSTEM, 2:HIDDEN*/

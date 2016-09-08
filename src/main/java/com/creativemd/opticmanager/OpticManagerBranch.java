@@ -37,7 +37,7 @@ public class OpticManagerBranch extends ConfigBranch{
 
 	@Override
 	public void createConfigSegments() {
-		segments.add(new BooleanSegment("nametag", "Show Nametag", false));
+		segments.add(new BooleanSegment("nametag", "Show Player Nametag", false));
 		segments.add(new FloatSliderSegment("brightness", "Brightness", 0F, -1F, 1));
 		segments.add(new SelectSegment("chat", "Chat Visibilty", 0, "Shown", "Only Commands", "Hidden"));
 		segments.add(new IntegerSegment("dayDuration", "Day duration", 12000, 1, Integer.MAX_VALUE));
@@ -51,7 +51,7 @@ public class OpticManagerBranch extends ConfigBranch{
 
 	@Override
 	public void onRecieveFrom(boolean isServer, ConfigSegmentCollection collection) {
-		OpticManager.renderNameTag = (Boolean) collection.getSegmentValue("nametag");
+		OpticManager.renderPlayerNameTag = (Boolean) collection.getSegmentValue("nametag");
 		OpticManager.brightness = (Float) collection.getSegmentValue("brightness");
 		if(OpticManager.brightness > 0)
 			OpticManager.brightness++;

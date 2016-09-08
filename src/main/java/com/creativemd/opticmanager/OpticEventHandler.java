@@ -1,9 +1,16 @@
 package com.creativemd.opticmanager;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ChunkProviderClient;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayer.EnumChatVisibility;
+import net.minecraft.world.ChunkCache;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.client.model.pipeline.IVertexConsumer;
+import net.minecraftforge.client.model.pipeline.LightUtil;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -84,6 +91,7 @@ public class OpticEventHandler {
 	@SideOnly(Side.CLIENT)
 	public void changeTick(World world)
 	{
+		
 		//long timeBefore = System.currentTimeMillis();
 		long expectedWorldTime = lastWorldTimeClient+1L;
 		if(expectedWorldTime == world.getWorldTime())
@@ -136,7 +144,7 @@ public class OpticEventHandler {
 	@SideOnly(Side.CLIENT)
 	public void onRenderNameTag(RenderLivingEvent.Specials.Pre event)
 	{
-		if(!OpticManager.renderNameTag)
+		if(!OpticManager.renderPlayerNameTag && event.getEntity() instanceof EntityPlayer)
 			event.setCanceled(true);
 	}
 	
