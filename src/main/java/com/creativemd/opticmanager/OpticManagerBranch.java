@@ -42,6 +42,10 @@ public class OpticManagerBranch extends ConfigBranch{
 		segments.add(new SelectSegment("chat", "Chat Visibilty", 0, "Shown", "Only Commands", "Hidden"));
 		segments.add(new IntegerSegment("dayDuration", "Day duration", 12000, 1, Integer.MAX_VALUE));
 		segments.add(new IntegerSegment("nightDuration", "Night duration", 12000, 1, Integer.MAX_VALUE));
+		segments.add(new FloatSliderSegment("dayBrightness", "Sunlight Factor", 1F, 0, 1).setToolTip("Will be used in calculating light value.", "Will effect monster spawning."));
+		segments.add(new FloatSliderSegment("nightBrightness", "Moonlight Factor", 0F, 0, 1).setToolTip("Will be used in calculating light value.", "Will effect monster spawning."));
+		segments.add(new FloatSliderSegment("dayBrightnessClient", "Sunlight Brightness", 1F, 0, 1).setToolTip("Client side only", "Does not effect monster spawning."));
+		segments.add(new FloatSliderSegment("nightBrightnessClient", "Moonlight Brightness", 0.2F, 0, 1).setToolTip("Client side only", "Does not effect monster spawning."));
 	}
 
 	@Override
@@ -57,6 +61,10 @@ public class OpticManagerBranch extends ConfigBranch{
 			OpticManager.brightness++;
 		OpticManager.visibility = ((SelectSegment) collection.getSegmentByID("chat")).getIndex();
 		OpticManager.setDuration((Integer) collection.getSegmentValue("dayDuration"), (Integer) collection.getSegmentValue("nightDuration"));
+		OpticManager.dayBrightness = (Float) collection.getSegmentValue("dayBrightness");
+		OpticManager.nightBrightness = (Float) collection.getSegmentValue("nightBrightness");
+		OpticManager.dayBrightnessClient = (Float) collection.getSegmentValue("dayBrightnessClient");
+		OpticManager.nightBrightnessClient = (Float) collection.getSegmentValue("nightBrightnessClient");
 		if(FMLCommonHandler.instance().getEffectiveSide().isClient())
 			receiveClient();
 	}
