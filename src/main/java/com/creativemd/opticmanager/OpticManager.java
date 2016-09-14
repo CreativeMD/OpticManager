@@ -2,8 +2,8 @@ package com.creativemd.opticmanager;
 
 import java.util.Arrays;
 
-import com.creativemd.ingameconfigmanager.api.core.TabRegistry;
-import com.creativemd.ingameconfigmanager.api.tab.ModTab;
+import com.creativemd.igcm.api.core.TabRegistry;
+import com.creativemd.igcm.api.tab.ModTab;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 

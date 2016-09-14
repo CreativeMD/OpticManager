@@ -2,12 +2,12 @@ package com.creativemd.opticmanager;
 
 import com.creativemd.creativecore.client.avatar.Avatar;
 import com.creativemd.creativecore.client.avatar.AvatarItemStack;
-import com.creativemd.ingameconfigmanager.api.common.branch.ConfigBranch;
-import com.creativemd.ingameconfigmanager.api.common.branch.ConfigSegmentCollection;
-import com.creativemd.ingameconfigmanager.api.common.segment.BooleanSegment;
-import com.creativemd.ingameconfigmanager.api.common.segment.FloatSliderSegment;
-import com.creativemd.ingameconfigmanager.api.common.segment.IntegerSegment;
-import com.creativemd.ingameconfigmanager.api.common.segment.SelectSegment;
+import com.creativemd.igcm.api.common.branch.ConfigBranch;
+import com.creativemd.igcm.api.common.branch.ConfigSegmentCollection;
+import com.creativemd.igcm.api.common.segment.BooleanSegment;
+import com.creativemd.igcm.api.common.segment.FloatSliderSegment;
+import com.creativemd.igcm.api.common.segment.IntegerSegment;
+import com.creativemd.igcm.api.common.segment.SelectSegment;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
