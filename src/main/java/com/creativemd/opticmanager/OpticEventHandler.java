@@ -41,7 +41,7 @@ public class OpticEventHandler {
 	
 	
 	public OpticEventHandler() {
-		if(FMLCommonHandler.instance().getEffectiveSide().isClient())
+		if(FMLCommonHandler.instance().getSide().isClient())
 			initClient();
 	}
 	
