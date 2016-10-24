@@ -65,7 +65,7 @@ public class OpticManagerBranch extends ConfigBranch{
 		OpticManager.nightBrightness = (Float) collection.getSegmentValue("nightBrightness");
 		OpticManager.dayBrightnessClient = (Float) collection.getSegmentValue("dayBrightnessClient");
 		OpticManager.nightBrightnessClient = (Float) collection.getSegmentValue("nightBrightnessClient");
-		if(FMLCommonHandler.instance().getSide().isClient())
+		if(!isServer)
 			receiveClient();
 	}
 	
