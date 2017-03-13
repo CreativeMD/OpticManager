@@ -75,8 +75,8 @@ public class OpticEventHandler {
 	public void tick(ClientTickEvent event)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
-		if(event.phase == Phase.END && mc.theWorld != null)
-			changeTick(mc.theWorld);
+		if(event.phase == Phase.END && mc.world != null)
+			changeTick(mc.world);
 	}
 	
 	@SideOnly(Side.CLIENT)

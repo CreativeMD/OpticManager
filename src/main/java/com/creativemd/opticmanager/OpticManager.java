@@ -2,22 +2,16 @@ package com.creativemd.opticmanager;
 
 import java.util.Arrays;
 
-import com.creativemd.igcm.api.core.TabRegistry;
-import com.creativemd.igcm.api.tab.ModTab;
+import com.creativemd.igcm.api.ConfigTab;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayer.EnumChatVisibility;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.DummyModContainer;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.LoadController;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModMetadata;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 public class OpticManager extends DummyModContainer {
@@ -77,8 +71,6 @@ public class OpticManager extends DummyModContainer {
 		return nightDuration;
 	}
 	
-	public static ModTab tab;
-	
 	@Override
 	public boolean registerBus(EventBus bus, LoadController controller) {
 		bus.register(this);
@@ -90,8 +82,6 @@ public class OpticManager extends DummyModContainer {
 		
 		MinecraftForge.EVENT_BUS.register(new OpticEventHandler());
 		
-		tab = new ModTab("Optic", new ItemStack(Items.CLOCK));
-		tab.addBranch(new OpticManagerBranch());
-		TabRegistry.registerModTab(tab);
+		ConfigTab.root.registerElement("optic", new OpticManagerBranch());
 	}
 }
