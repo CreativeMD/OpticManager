@@ -2,7 +2,6 @@ package com.creativemd.opticmanager;
 
 import java.util.Arrays;
 
-import com.creativemd.igcm.api.ConfigTab;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
@@ -82,6 +81,6 @@ public class OpticManager extends DummyModContainer {
 		
 		MinecraftForge.EVENT_BUS.register(new OpticEventHandler());
 		
-		ConfigTab.root.registerElement("optic", new OpticManagerBranch());
+		OpticIGCMLoader.load();
 	}
 }

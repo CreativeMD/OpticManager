@@ -42,7 +42,7 @@ public class OpticTransformer extends CreativeTransformer{
 				m.instructions.clear();
 				m.instructions.add(new VarInsnNode(ALOAD, 0));
 				m.instructions.add(new VarInsnNode(FLOAD, 1));
-				m.instructions.add(new MethodInsnNode(INVOKESTATIC, "com/creativemd/opticmanager/OpticWorldUtils", "getSunBrightness", patchDESC("(Lnet/minecraft/world/World;F)F")));
+				m.instructions.add(new MethodInsnNode(INVOKESTATIC, "com/creativemd/opticmanager/OpticWorldUtils", "getSunBrightness", patchDESC("(Lnet/minecraft/world/World;F)F"), false));
 				m.instructions.add(new InsnNode(FRETURN));
 				
 				m = findMethod(node, "getSunBrightnessBody", "(F)F");
@@ -51,7 +51,7 @@ public class OpticTransformer extends CreativeTransformer{
 					m.instructions.clear();
 					m.instructions.add(new VarInsnNode(ALOAD, 0));
 					m.instructions.add(new VarInsnNode(FLOAD, 1));
-					m.instructions.add(new MethodInsnNode(INVOKESTATIC, "com/creativemd/opticmanager/OpticWorldUtils", "getSunBrightnessClient", patchDESC("(Lnet/minecraft/world/World;F)F")));
+					m.instructions.add(new MethodInsnNode(INVOKESTATIC, "com/creativemd/opticmanager/OpticWorldUtils", "getSunBrightnessClient", patchDESC("(Lnet/minecraft/world/World;F)F"), false));
 					m.instructions.add(new InsnNode(FRETURN));
 				}
 			}
