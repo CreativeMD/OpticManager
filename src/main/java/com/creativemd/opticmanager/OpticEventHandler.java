@@ -70,6 +70,11 @@ public class OpticEventHandler {
 		return time <= dayDuration;
 	}
 	
+	public boolean shouldAffectWorld(World world)
+	{
+		return world.provider.getDimension() == 0 && world.getGameRules().getBoolean("doDaylightCycle");
+	}
+	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void tick(ClientTickEvent event)
@@ -91,7 +96,8 @@ public class OpticEventHandler {
 	@SideOnly(Side.CLIENT)
 	public void changeTick(World world)
 	{
-		
+		if(!shouldAffectWorld(world))
+			return ;
 		//long timeBefore = System.currentTimeMillis();
 		long expectedWorldTime = lastWorldTimeClient+1L;
 		if(expectedWorldTime == world.getWorldTime())
@@ -117,9 +123,13 @@ public class OpticEventHandler {
 	@SubscribeEvent
 	public void tick(WorldTickEvent event)
 	{
-		if(event.phase == Phase.START && event.world.provider.getDimension() == 0 && event.world.getGameRules().getBoolean("doDaylightCycle"))
+		if(event.phase == Phase.START)
 		{
 			World world = event.world;
+			
+			if(shouldAffectWorld(world))
+				return ;
+			
 			long expectedWorldTime = lastWorldTime+1L;
 			if(expectedWorldTime == world.getWorldTime())
 			{
