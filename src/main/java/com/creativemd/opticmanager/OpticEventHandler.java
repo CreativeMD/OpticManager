@@ -127,7 +127,7 @@ public class OpticEventHandler {
 		{
 			World world = event.world;
 			
-			if(shouldAffectWorld(world))
+			if(!shouldAffectWorld(world))
 				return ;
 			
 			long expectedWorldTime = lastWorldTime+1L;
