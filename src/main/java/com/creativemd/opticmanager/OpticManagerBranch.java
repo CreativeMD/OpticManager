@@ -1,7 +1,5 @@
 package com.creativemd.opticmanager;
 
-import com.creativemd.creativecore.client.avatar.Avatar;
-import com.creativemd.creativecore.client.avatar.AvatarItemStack;
 import com.creativemd.igcm.api.ConfigBranch;
 import com.creativemd.igcm.api.segments.BooleanSegment;
 import com.creativemd.igcm.api.segments.FloatSliderSegment;
