@@ -103,7 +103,6 @@ public class OpticEventHandler {
 		if(expectedWorldTime == world.getWorldTime())
 		{
 			realWorldTimeClient++;
-			realWorldTimeClient = realWorldTimeClient % OpticManager.getTotalDayDuration();
 			//System.out.println(realWorldTime);
 			if(isDay(realWorldTimeClient, OpticManager.getDayDuration(), OpticManager.getNightDuration()))
 				world.setWorldTime((long) (realWorldTimeClient/(float)OpticManager.getDayDuration()*(float)vanillaHalfDuration));
@@ -134,7 +133,6 @@ public class OpticEventHandler {
 			if(expectedWorldTime == world.getWorldTime())
 			{
 				realWorldTime++;
-				realWorldTime = realWorldTime % OpticManager.getTotalDayDuration();
 				//System.out.println(realWorldTime);
 				if(isDay(realWorldTime, OpticManager.getDayDuration(), OpticManager.getNightDuration()))
 					world.setWorldTime((long) (realWorldTime/(float)OpticManager.getDayDuration()*vanillaHalfDuration));
