@@ -54,10 +54,12 @@ public class OpticEventHandler {
 	
 	public void assignTime(long worldTime)
 	{
+		long days = worldTime / vanillaDuration;
+		realWorldTime = days * OpticManager.getTotalDayDuration();
 		if(isDayVanilla(worldTime))
-			realWorldTime = (long) (worldTime/(float)vanillaHalfDuration*OpticManager.getDayDuration());
+			realWorldTime += (long) ((worldTime % vanillaDuration)/(float)vanillaHalfDuration*OpticManager.getDayDuration());
 		else
-			realWorldTime = (long) ((worldTime-vanillaHalfDuration)/(float)vanillaHalfDuration*OpticManager.getNightDuration()+OpticManager.getDayDuration());
+			realWorldTime += (long) (((worldTime % vanillaDuration)-vanillaHalfDuration)/(float)vanillaHalfDuration*OpticManager.getNightDuration()+OpticManager.getDayDuration());
 	}
 	
 	public boolean isDayVanilla(long time)
@@ -67,7 +69,7 @@ public class OpticEventHandler {
 	
 	public boolean isDay(long time, long dayDuration, long nightDuration)
 	{
-		return time <= dayDuration;
+		return time % (dayDuration + nightDuration) <= dayDuration;
 	}
 	
 	public boolean shouldAffectWorld(World world)
@@ -87,10 +89,12 @@ public class OpticEventHandler {
 	@SideOnly(Side.CLIENT)
 	public void assignTimeClient(long worldTime)
 	{
+		long days = worldTime / vanillaDuration;
+		realWorldTimeClient = days * OpticManager.getTotalDayDuration();
 		if(isDayVanilla(worldTime))
-			realWorldTimeClient = (long) (worldTime/(float)vanillaHalfDuration*OpticManager.getDayDuration());
+			realWorldTimeClient += (long) ((worldTime % vanillaDuration)/(float)vanillaHalfDuration*OpticManager.getDayDuration());
 		else
-			realWorldTimeClient = (long) ((worldTime-vanillaHalfDuration)/(float)vanillaHalfDuration*OpticManager.getNightDuration()+OpticManager.getDayDuration());
+			realWorldTimeClient += (long) (((worldTime % vanillaDuration)-vanillaHalfDuration)/(float)vanillaHalfDuration*OpticManager.getNightDuration()+OpticManager.getDayDuration());
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -103,11 +107,12 @@ public class OpticEventHandler {
 		if(expectedWorldTime == world.getWorldTime())
 		{
 			realWorldTimeClient++;
-			//System.out.println(realWorldTime);
+			int days = (int) (realWorldTimeClient / OpticManager.getTotalDayDuration());
+			//System.out.println(realWorldTimeClient + "." + world.getWorldTime());
 			if(isDay(realWorldTimeClient, OpticManager.getDayDuration(), OpticManager.getNightDuration()))
-				world.setWorldTime((long) (realWorldTimeClient/(float)OpticManager.getDayDuration()*(float)vanillaHalfDuration));
+				world.setWorldTime(days * vanillaDuration + (long) ((realWorldTimeClient % OpticManager.getTotalDayDuration())/(float)OpticManager.getDayDuration()*vanillaHalfDuration));
 			else
-				world.setWorldTime((long) ((realWorldTimeClient-OpticManager.getDayDuration())/(float)OpticManager.getNightDuration()*vanillaHalfDuration+vanillaHalfDuration));
+				world.setWorldTime((long) (days * vanillaDuration + ((realWorldTimeClient % OpticManager.getTotalDayDuration())-OpticManager.getDayDuration())/(float)OpticManager.getNightDuration()*vanillaHalfDuration+vanillaHalfDuration));
 			world.setTotalWorldTime(world.getTotalWorldTime() + expectedWorldTime-world.getWorldTime());
 		}else{
 			//System.out.println("expected: " + expectedWorldTime + " given:" + world.getWorldTime());
@@ -133,11 +138,11 @@ public class OpticEventHandler {
 			if(expectedWorldTime == world.getWorldTime())
 			{
 				realWorldTime++;
-				//System.out.println(realWorldTime);
+				int days = (int) (realWorldTime / OpticManager.getTotalDayDuration());
 				if(isDay(realWorldTime, OpticManager.getDayDuration(), OpticManager.getNightDuration()))
-					world.setWorldTime((long) (realWorldTime/(float)OpticManager.getDayDuration()*vanillaHalfDuration));
+					world.setWorldTime(days * vanillaDuration + (long) ((realWorldTime % OpticManager.getTotalDayDuration())/(float)OpticManager.getDayDuration()*vanillaHalfDuration));
 				else
-					world.setWorldTime((long) ((realWorldTime-OpticManager.getDayDuration())/(float)OpticManager.getNightDuration()*vanillaHalfDuration+vanillaHalfDuration));
+					world.setWorldTime((long) (days * vanillaDuration + ((realWorldTime % OpticManager.getTotalDayDuration())-OpticManager.getDayDuration())/(float)OpticManager.getNightDuration()*vanillaHalfDuration+vanillaHalfDuration));
 				world.getWorldInfo().setWorldTotalTime(world.getTotalWorldTime() + expectedWorldTime-world.getWorldTime());
 			}else{
 				//System.out.println("expected: " + expectedWorldTime + " given:" + event.world.getWorldTime());
