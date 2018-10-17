@@ -5,8 +5,6 @@ import java.util.Arrays;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.DummyModContainer;
 import net.minecraftforge.fml.common.LoadController;
@@ -21,7 +19,7 @@ public class OpticManager extends DummyModContainer {
 	public static boolean renderPlayerNameTag = true;
 	public static float brightness = 1F;
 	
-	/**0: FULL, 1:SYSTEM, 2:HIDDEN*/
+	/** 0: FULL, 1:SYSTEM, 2:HIDDEN */
 	public static int visibility = 0;
 	//public static EntityPlayer.EnumChatVisibility visibilty = EnumChatVisibility.FULL;
 	
@@ -35,7 +33,7 @@ public class OpticManager extends DummyModContainer {
 	private static int nightDuration = 12000;
 	
 	public OpticManager() {
-
+		
 		super(new ModMetadata());
 		ModMetadata meta = getMetadata();
 		meta.modId = modid;
@@ -49,24 +47,20 @@ public class OpticManager extends DummyModContainer {
 		meta.logoFile = "";
 	}
 	
-	public static void setDuration(int dayDuration, int nightDuration)
-	{
+	public static void setDuration(int dayDuration, int nightDuration) {
 		OpticManager.dayDuration = dayDuration;
 		OpticManager.nightDuration = nightDuration;
 	}
 	
-	public static int getTotalDayDuration()
-	{
+	public static int getTotalDayDuration() {
 		return dayDuration + nightDuration;
 	}
 	
-	public static int getDayDuration()
-	{
+	public static int getDayDuration() {
 		return dayDuration;
 	}
 	
-	public static int getNightDuration()
-	{
+	public static int getNightDuration() {
 		return nightDuration;
 	}
 	

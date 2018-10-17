@@ -14,18 +14,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class OpticManagerBranch extends ConfigBranch{
-
+public class OpticManagerBranch extends ConfigBranch {
+	
 	public OpticManagerBranch() {
 		super("Optic", new ItemStack(Items.CLOCK));
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public void receiveClient()
-	{
+	public void receiveClient() {
 		Minecraft.getMinecraft().gameSettings.chatVisibility = EnumChatVisibility.getEnumChatVisibility(OpticManager.visibility);
 	}
-
+	
 	@Override
 	public void createChildren() {
 		
@@ -39,17 +38,17 @@ public class OpticManagerBranch extends ConfigBranch{
 		registerElement("dayBrightnessClient", new FloatSliderSegment("Sunlight Brightness", 1F, 0, 1).setToolTip("Client side only", "Does not effect monster spawning."));
 		registerElement("nightBrightnessClient", new FloatSliderSegment("Moonlight Brightness", 0.2F, 0, 1).setToolTip("Client side only", "Does not effect monster spawning."));
 	}
-
+	
 	@Override
 	public boolean requiresSynchronization() {
 		return true;
 	}
-
+	
 	@Override
 	public void onRecieveFrom(Side side) {
 		OpticManager.renderPlayerNameTag = (Boolean) getValue("nametag");
 		OpticManager.brightness = (Float) getValue("brightness");
-		if(OpticManager.brightness > 0)
+		if (OpticManager.brightness > 0)
 			OpticManager.brightness++;
 		OpticManager.visibility = ((SelectSegment) getChildByKey("chat")).getIndex();
 		OpticManager.setDuration((Integer) getValue("dayDuration"), (Integer) getValue("nightDuration"));
@@ -57,15 +56,15 @@ public class OpticManagerBranch extends ConfigBranch{
 		OpticManager.nightBrightness = (Float) getValue("nightBrightness");
 		OpticManager.dayBrightnessClient = (Float) getValue("dayBrightnessClient");
 		OpticManager.nightBrightnessClient = (Float) getValue("nightBrightnessClient");
-		if(side.isClient())
+		if (side.isClient())
 			receiveClient();
 	}
-
+	
 	@Override
 	public void loadExtra(NBTTagCompound nbt) {
 		
 	}
-
+	
 	@Override
 	public void saveExtra(NBTTagCompound nbt) {
 		
