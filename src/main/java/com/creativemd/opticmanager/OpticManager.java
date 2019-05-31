@@ -32,6 +32,8 @@ public class OpticManager extends DummyModContainer {
 	private static int dayDuration = 12000;
 	private static int nightDuration = 12000;
 	
+	public static boolean overrideBrightness = true;
+	
 	public OpticManager() {
 		
 		super(new ModMetadata());

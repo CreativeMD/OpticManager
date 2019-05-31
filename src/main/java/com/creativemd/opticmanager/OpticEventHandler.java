@@ -145,17 +145,17 @@ public class OpticEventHandler {
 	@SideOnly(Side.CLIENT)
 	public void renderTick(RenderTickEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
-		if (event.phase == Phase.START) {
-			defaultGammaSetting = mc.gameSettings.gammaSetting;
-			mc.gameSettings.gammaSetting = OpticManager.brightness;
-		} else {
-			mc.gameSettings.gammaSetting = defaultGammaSetting;
-			
-			/* if(OpticManager.visibility )
-			 * OpticManager.visibility = EnumChatVisibility.FULL; */
-			//if(OpticManager.visibility != null && mc.gameSettings.chatVisibility != OpticManager.visibility)
-			mc.gameSettings.chatVisibility = EnumChatVisibility.getEnumChatVisibility(OpticManager.visibility);
+		if (OpticManager.overrideBrightness) {
+			if (event.phase == Phase.START) {
+				defaultGammaSetting = mc.gameSettings.gammaSetting;
+				mc.gameSettings.gammaSetting = OpticManager.brightness;
+			} else {
+				mc.gameSettings.gammaSetting = defaultGammaSetting;
+			}
 		}
+		
+		if (event.phase == Phase.END)
+			mc.gameSettings.chatVisibility = EnumChatVisibility.getEnumChatVisibility(OpticManager.visibility);
 	}
 	
 }
