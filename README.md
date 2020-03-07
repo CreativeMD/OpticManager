@@ -1,6 +1,5 @@
 # OpticManager
-It's an addon for IGCM.
+It's an addon for CreativeCore.
 
 ## Requirements
 - [CreativeCore](https://github.com/CreativeMD/CreativeCore)
-- [IGCM](https://github.com/CreativeMD/IGCM)
