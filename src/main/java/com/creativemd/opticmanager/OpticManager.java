@@ -2,6 +2,7 @@ package com.creativemd.opticmanager;
 
 import java.util.Arrays;
 
+import com.creativemd.creativecore.common.config.holder.CreativeConfigRegistry;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
@@ -16,23 +17,7 @@ public class OpticManager extends DummyModContainer {
 	public static final String modid = "opticmanager";
 	public static final String version = "1.0";
 	
-	public static boolean renderPlayerNameTag = true;
-	public static float brightness = 1F;
-	
-	/** 0: FULL, 1:SYSTEM, 2:HIDDEN */
-	public static int visibility = 0;
-	//public static EntityPlayer.EnumChatVisibility visibilty = EnumChatVisibility.FULL;
-	
-	public static float dayBrightness = 1F;
-	public static float nightBrightness = 1F;
-	
-	public static float dayBrightnessClient = 1F;
-	public static float nightBrightnessClient = 1F;
-	
-	private static int dayDuration = 12000;
-	private static int nightDuration = 12000;
-	
-	public static boolean overrideBrightness = true;
+	public static OpticManagerConfig CONFIG;
 	
 	public OpticManager() {
 		
@@ -49,21 +34,9 @@ public class OpticManager extends DummyModContainer {
 		meta.logoFile = "";
 	}
 	
-	public static void setDuration(int dayDuration, int nightDuration) {
-		OpticManager.dayDuration = dayDuration;
-		OpticManager.nightDuration = nightDuration;
-	}
-	
-	public static int getTotalDayDuration() {
-		return dayDuration + nightDuration;
-	}
-	
-	public static int getDayDuration() {
-		return dayDuration;
-	}
-	
-	public static int getNightDuration() {
-		return nightDuration;
+	@Override
+	public String getGuiClassName() {
+		return "com.creativemd.opticmanager.OpticManagerSettings";
 	}
 	
 	@Override
@@ -74,9 +47,7 @@ public class OpticManager extends DummyModContainer {
 	
 	@Subscribe
 	public void init(FMLInitializationEvent evt) {
-		
+		CreativeConfigRegistry.ROOT.registerValue(modid, CONFIG = new OpticManagerConfig());
 		MinecraftForge.EVENT_BUS.register(new OpticEventHandler());
-		
-		OpticIGCMLoader.load();
 	}
 }

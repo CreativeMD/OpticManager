@@ -2,7 +2,6 @@ package com.creativemd.opticmanager;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayer.EnumChatVisibility;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -43,11 +42,11 @@ public class OpticEventHandler {
 	
 	public void assignTime(long worldTime) {
 		long days = worldTime / vanillaDuration;
-		realWorldTime = days * OpticManager.getTotalDayDuration();
+		realWorldTime = days * OpticManager.CONFIG.getTotalDayDuration();
 		if (isDayVanilla(worldTime))
-			realWorldTime += (long) ((worldTime % vanillaDuration) / (float) vanillaHalfDuration * OpticManager.getDayDuration());
+			realWorldTime += (long) ((worldTime % vanillaDuration) / (float) vanillaHalfDuration * OpticManager.CONFIG.dayDuration);
 		else
-			realWorldTime += (long) (((worldTime % vanillaDuration) - vanillaHalfDuration) / (float) vanillaHalfDuration * OpticManager.getNightDuration() + OpticManager.getDayDuration());
+			realWorldTime += (long) (((worldTime % vanillaDuration) - vanillaHalfDuration) / (float) vanillaHalfDuration * OpticManager.CONFIG.nightDuration + OpticManager.CONFIG.dayDuration);
 	}
 	
 	public boolean isDayVanilla(long time) {
@@ -73,11 +72,11 @@ public class OpticEventHandler {
 	@SideOnly(Side.CLIENT)
 	public void assignTimeClient(long worldTime) {
 		long days = worldTime / vanillaDuration;
-		realWorldTimeClient = days * OpticManager.getTotalDayDuration();
+		realWorldTimeClient = days * OpticManager.CONFIG.dayDuration;
 		if (isDayVanilla(worldTime))
-			realWorldTimeClient += (long) ((worldTime % vanillaDuration) / (float) vanillaHalfDuration * OpticManager.getDayDuration());
+			realWorldTimeClient += (long) ((worldTime % vanillaDuration) / (float) vanillaHalfDuration * OpticManager.CONFIG.dayDuration);
 		else
-			realWorldTimeClient += (long) (((worldTime % vanillaDuration) - vanillaHalfDuration) / (float) vanillaHalfDuration * OpticManager.getNightDuration() + OpticManager.getDayDuration());
+			realWorldTimeClient += (long) (((worldTime % vanillaDuration) - vanillaHalfDuration) / (float) vanillaHalfDuration * OpticManager.CONFIG.nightDuration + OpticManager.CONFIG.dayDuration);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -88,12 +87,12 @@ public class OpticEventHandler {
 		long expectedWorldTime = lastWorldTimeClient + 1L;
 		if (expectedWorldTime == world.getWorldTime()) {
 			realWorldTimeClient++;
-			int days = (int) (realWorldTimeClient / OpticManager.getTotalDayDuration());
+			int days = (int) (realWorldTimeClient / OpticManager.CONFIG.dayDuration);
 			//System.out.println(realWorldTimeClient + "." + world.getWorldTime());
-			if (isDay(realWorldTimeClient, OpticManager.getDayDuration(), OpticManager.getNightDuration()))
-				world.setWorldTime(days * vanillaDuration + (long) ((realWorldTimeClient % OpticManager.getTotalDayDuration()) / (float) OpticManager.getDayDuration() * vanillaHalfDuration));
+			if (isDay(realWorldTimeClient, OpticManager.CONFIG.dayDuration, OpticManager.CONFIG.nightDuration))
+				world.setWorldTime(days * vanillaDuration + (long) ((realWorldTimeClient % OpticManager.CONFIG.getTotalDayDuration()) / (float) OpticManager.CONFIG.dayDuration * vanillaHalfDuration));
 			else
-				world.setWorldTime((long) (days * vanillaDuration + ((realWorldTimeClient % OpticManager.getTotalDayDuration()) - OpticManager.getDayDuration()) / (float) OpticManager.getNightDuration() * vanillaHalfDuration + vanillaHalfDuration));
+				world.setWorldTime((long) (days * vanillaDuration + ((realWorldTimeClient % OpticManager.CONFIG.getTotalDayDuration()) - OpticManager.CONFIG.dayDuration) / (float) OpticManager.CONFIG.nightDuration * vanillaHalfDuration + vanillaHalfDuration));
 			world.setTotalWorldTime(world.getTotalWorldTime() + expectedWorldTime - world.getWorldTime());
 		} else {
 			//System.out.println("expected: " + expectedWorldTime + " given:" + world.getWorldTime());
@@ -116,11 +115,11 @@ public class OpticEventHandler {
 			long expectedWorldTime = lastWorldTime + 1L;
 			if (expectedWorldTime == world.getWorldTime()) {
 				realWorldTime++;
-				int days = (int) (realWorldTime / OpticManager.getTotalDayDuration());
-				if (isDay(realWorldTime, OpticManager.getDayDuration(), OpticManager.getNightDuration()))
-					world.setWorldTime(days * vanillaDuration + (long) ((realWorldTime % OpticManager.getTotalDayDuration()) / (float) OpticManager.getDayDuration() * vanillaHalfDuration));
+				int days = (int) (realWorldTime / OpticManager.CONFIG.getTotalDayDuration());
+				if (isDay(realWorldTime, OpticManager.CONFIG.dayDuration, OpticManager.CONFIG.nightDuration))
+					world.setWorldTime(days * vanillaDuration + (long) ((realWorldTime % OpticManager.CONFIG.getTotalDayDuration()) / (float) OpticManager.CONFIG.dayDuration * vanillaHalfDuration));
 				else
-					world.setWorldTime((long) (days * vanillaDuration + ((realWorldTime % OpticManager.getTotalDayDuration()) - OpticManager.getDayDuration()) / (float) OpticManager.getNightDuration() * vanillaHalfDuration + vanillaHalfDuration));
+					world.setWorldTime((long) (days * vanillaDuration + ((realWorldTime % OpticManager.CONFIG.getTotalDayDuration()) - OpticManager.CONFIG.dayDuration) / (float) OpticManager.CONFIG.nightDuration * vanillaHalfDuration + vanillaHalfDuration));
 				world.getWorldInfo().setWorldTotalTime(world.getTotalWorldTime() + expectedWorldTime - world.getWorldTime());
 			} else {
 				//System.out.println("expected: " + expectedWorldTime + " given:" + event.world.getWorldTime());
@@ -134,28 +133,27 @@ public class OpticEventHandler {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onRenderNameTag(RenderLivingEvent.Specials.Pre event) {
-		if (!OpticManager.renderPlayerNameTag && event.getEntity() instanceof EntityPlayer)
+		if (!OpticManager.CONFIG.renderPlayerNameTag && event.getEntity() instanceof EntityPlayer)
 			event.setCanceled(true);
 	}
 	
 	public static float defaultGammaSetting;
-	//public Minecraft mc = Minecraft.getMinecraft();
 	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void renderTick(RenderTickEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
-		if (OpticManager.overrideBrightness) {
+		if (OpticManager.CONFIG.overrideBrightness) {
 			if (event.phase == Phase.START) {
 				defaultGammaSetting = mc.gameSettings.gammaSetting;
-				mc.gameSettings.gammaSetting = OpticManager.brightness;
+				mc.gameSettings.gammaSetting = OpticManager.CONFIG.getRealBrightness();
 			} else {
 				mc.gameSettings.gammaSetting = defaultGammaSetting;
 			}
 		}
 		
 		if (event.phase == Phase.END)
-			mc.gameSettings.chatVisibility = EnumChatVisibility.getEnumChatVisibility(OpticManager.visibility);
+			mc.gameSettings.chatVisibility = OpticManager.CONFIG.visibility;
 	}
 	
 }

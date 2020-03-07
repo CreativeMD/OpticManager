@@ -12,10 +12,10 @@ public class OpticWorldUtils {
 		float f1 = 1.0F - (MathHelper.cos(f * ((float) Math.PI * 2F)) * 2.0F + 0.5F);
 		f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
 		f1 = 1.0F - f1;
-		f1 = (float) ((double) f1 * (1.0D - (double) (world.getRainStrength(partialTicks) * 5.0F) / 16.0D));
-		f1 = (float) ((double) f1 * (1.0D - (double) (world.getThunderStrength(partialTicks) * 5.0F) / 16.0D));
-		if (OpticManager.overrideBrightness)
-			return f1 * (OpticManager.dayBrightness - OpticManager.nightBrightness) + OpticManager.nightBrightness;
+		f1 = (float) (f1 * (1.0D - world.getRainStrength(partialTicks) * 5.0F / 16.0D));
+		f1 = (float) (f1 * (1.0D - world.getThunderStrength(partialTicks) * 5.0F / 16.0D));
+		if (OpticManager.CONFIG.overrideDayNightBrightness)
+			return f1 * (OpticManager.CONFIG.dayBrightness - OpticManager.CONFIG.nightBrightness) + OpticManager.CONFIG.nightBrightness;
 		return f1;
 	}
 	
@@ -25,11 +25,11 @@ public class OpticWorldUtils {
 		float f1 = 1.0F - (MathHelper.cos(f * ((float) Math.PI * 2F)) * 2.0F + 0.2F);
 		f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
 		f1 = 1.0F - f1;
-		f1 = (float) ((double) f1 * (1.0D - (double) (world.getRainStrength(partialTicks) * 5.0F) / 16.0D));
-		f1 = (float) ((double) f1 * (1.0D - (double) (world.getThunderStrength(partialTicks) * 5.0F) / 16.0D));
+		f1 = (float) (f1 * (1.0D - world.getRainStrength(partialTicks) * 5.0F / 16.0D));
+		f1 = (float) (f1 * (1.0D - world.getThunderStrength(partialTicks) * 5.0F / 16.0D));
 		//return f1 * 0.8F + 0.2F;
-		if (OpticManager.overrideBrightness)
-			return f1 * (OpticManager.dayBrightnessClient - OpticManager.nightBrightnessClient) + OpticManager.nightBrightnessClient;
+		if (OpticManager.CONFIG.overrideDayNightRenderedBrightness)
+			return f1 * (OpticManager.CONFIG.dayBrightnessRendered - OpticManager.CONFIG.nightBrightnessRendered) + OpticManager.CONFIG.nightBrightnessRendered;
 		return f1;
 	}
 	
