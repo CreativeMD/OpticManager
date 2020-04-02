@@ -72,7 +72,7 @@ public class OpticEventHandler {
 	@SideOnly(Side.CLIENT)
 	public void assignTimeClient(long worldTime) {
 		long days = worldTime / vanillaDuration;
-		realWorldTimeClient = days * OpticManager.CONFIG.dayDuration;
+		realWorldTimeClient = days * OpticManager.CONFIG.getTotalDayDuration();
 		if (isDayVanilla(worldTime))
 			realWorldTimeClient += (long) ((worldTime % vanillaDuration) / (float) vanillaHalfDuration * OpticManager.CONFIG.dayDuration);
 		else
@@ -87,7 +87,7 @@ public class OpticEventHandler {
 		long expectedWorldTime = lastWorldTimeClient + 1L;
 		if (expectedWorldTime == world.getWorldTime()) {
 			realWorldTimeClient++;
-			int days = (int) (realWorldTimeClient / OpticManager.CONFIG.dayDuration);
+			int days = (int) (realWorldTimeClient / OpticManager.CONFIG.getTotalDayDuration());
 			//System.out.println(realWorldTimeClient + "." + world.getWorldTime());
 			if (isDay(realWorldTimeClient, OpticManager.CONFIG.dayDuration, OpticManager.CONFIG.nightDuration))
 				world.setWorldTime(days * vanillaDuration + (long) ((realWorldTimeClient % OpticManager.CONFIG.getTotalDayDuration()) / (float) OpticManager.CONFIG.dayDuration * vanillaHalfDuration));
