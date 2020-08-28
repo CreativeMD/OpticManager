@@ -120,7 +120,7 @@ public class OpticEventHandler {
 					world.setWorldTime(days * vanillaDuration + (long) ((realWorldTime % OpticManager.CONFIG.getTotalDayDuration()) / (float) OpticManager.CONFIG.dayDuration * vanillaHalfDuration));
 				else
 					world.setWorldTime((long) (days * vanillaDuration + ((realWorldTime % OpticManager.CONFIG.getTotalDayDuration()) - OpticManager.CONFIG.dayDuration) / (float) OpticManager.CONFIG.nightDuration * vanillaHalfDuration + vanillaHalfDuration));
-				world.getWorldInfo().setWorldTotalTime(world.getTotalWorldTime() + expectedWorldTime - world.getWorldTime());
+				//world.getWorldInfo().setWorldTotalTime(world.getTotalWorldTime() + expectedWorldTime - world.getWorldTime());
 			} else {
 				//System.out.println("expected: " + expectedWorldTime + " given:" + event.world.getWorldTime());
 				assignTime(world.getWorldTime());
