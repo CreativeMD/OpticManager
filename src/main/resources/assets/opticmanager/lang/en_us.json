@@ -1,0 +1,6 @@
+{
+	"config.opticmanager.day-brightness.commment": "Will be used in calculating light value.\nWill effect monster spawning.",
+	"config.opticmanager.night-brightness.commment": "Will be used in calculating light value.\nWill effect monster spawning.",
+	"config.opticmanager.day-brightness-client.commment": "Client side only\nDoes not effect monster spawning.",
+	"config.opticmanager.night-brightness-client.commment": "Client side only\nDoes not effect monster spawning."
+}

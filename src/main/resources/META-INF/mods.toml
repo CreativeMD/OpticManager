@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[24,)"
+issueTrackerURL="https://github.com/CreativeMD/OpticManager/issues"
+logoFile="itemphysic.png"
+license="GNU General Public License v3.0"
+
+[[mods]]
+	modId="opticmanager"
+	version="1.2.0"
+	displayName="OpticManager"
+	displayURL="https://www.curseforge.com/minecraft/mc-mods/opticmanager"
+	authors=["CreativeMD"]
+	description='''Sync client side configurations. Modify length of day and night.'''
+	
+[[dependencies.itemphysic]]
+	modId="creativecore"
+	mandatory=true
+	ordering="NONE"
+	side="BOTH"
+	versionRange="[2.1.0,)"
