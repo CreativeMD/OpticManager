@@ -1,6 +1,6 @@
 package team.creative.opticmanager;
 
-import net.minecraft.entity.player.ChatVisibility;
+import net.minecraft.world.entity.player.ChatVisiblity;
 import team.creative.creativecore.common.config.api.CreativeConfig;
 import team.creative.creativecore.common.config.sync.ConfigSynchronization;
 
@@ -10,7 +10,7 @@ public class OpticManagerConfig {
     public boolean renderPlayerNameTag = true;
     
     @CreativeConfig(type = ConfigSynchronization.CLIENT)
-    public ChatVisibility visibility = ChatVisibility.FULL;
+    public ChatVisiblity visibility = ChatVisiblity.FULL;
     
     @CreativeConfig(type = ConfigSynchronization.CLIENT)
     public boolean overrideBrightness = false;

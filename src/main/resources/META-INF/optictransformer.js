@@ -4,9 +4,9 @@ function initializeCoreMod() {
         'renderer': {
             'target': {
                 'type': 'METHOD',
-				'class': 'net.minecraft.client.renderer.entity.LivingRenderer',
-				'methodName': 'func_177070_b',
-				'methodDesc': '(Lnet/minecraft/entity/LivingEntity;)Z'
+				'class': 'net.minecraft.client.renderer.entity.EntityRenderer',
+				'methodName': 'm_6512_',
+				'methodDesc': '(Lnet/minecraft/world/entity/Entity;)Z'
             },
             'transformer': function(method) {
 				var asmapi = Java.type('net.minecraftforge.coremod.api.ASMAPI');
@@ -20,7 +20,7 @@ function initializeCoreMod() {
 				
 				method.instructions.insertBefore(start, new LabelNode());
 				method.instructions.insertBefore(start, new VarInsnNode(Opcodes.ALOAD, 1));
-				method.instructions.insertBefore(start, asmapi.buildMethodCall("team/creative/opticmanager/OpticEventHandler", "shouldHideNames", "(Lnet/minecraft/entity/Entity;)Z", asmapi.MethodType.STATIC));
+				method.instructions.insertBefore(start, asmapi.buildMethodCall("team/creative/opticmanager/OpticEventHandler", "shouldHideNames", "(Lnet/minecraft/world/entity/Entity;)Z", asmapi.MethodType.STATIC));
 				
 				
 				method.instructions.insertBefore(start, new JumpInsnNode(Opcodes.IFEQ, start));

@@ -1,13 +1,13 @@
 package team.creative.opticmanager;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.DimensionType;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
@@ -25,14 +25,14 @@ public class OpticEventHandler {
     public long lastTotalWorldTime = -1;
     public long realWorldTime;
     
-    @OnlyIn(value = Dist.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public long lastWorldTimeClient;
-    @OnlyIn(value = Dist.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public long lastTotalWorldTimeClient;
-    @OnlyIn(value = Dist.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public long realWorldTimeClient;
     
-    @OnlyIn(value = Dist.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void initClient() {
         lastWorldTimeClient = -1;
         lastTotalWorldTimeClient = -1;
@@ -55,7 +55,7 @@ public class OpticEventHandler {
         return time % (dayDuration + nightDuration) <= dayDuration;
     }
     
-    public boolean shouldAffectWorld(World world) {
+    public boolean shouldAffectWorld(Level world) {
         return world.dimension().location().equals(DimensionType.OVERWORLD_LOCATION.location()) && world.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT);
     }
     
@@ -78,7 +78,7 @@ public class OpticEventHandler {
     }
     
     @OnlyIn(value = Dist.CLIENT)
-    public void changeTick(World world) {
+    public void changeTick(Level world) {
         if (!shouldAffectWorld(world))
             return;
         long expectedWorldTime = lastWorldTimeClient + 1L;
@@ -86,12 +86,12 @@ public class OpticEventHandler {
             realWorldTimeClient++;
             int days = (int) (realWorldTimeClient / OpticManager.CONFIG.getTotalDayDuration());
             if (isDay(realWorldTimeClient, OpticManager.CONFIG.dayDuration, OpticManager.CONFIG.nightDuration))
-                ((ClientWorld) world).setDayTime(days * vanillaDuration + (long) ((realWorldTimeClient % OpticManager.CONFIG
+                ((ClientLevel) world).setDayTime(days * vanillaDuration + (long) ((realWorldTimeClient % OpticManager.CONFIG
                         .getTotalDayDuration()) / (float) OpticManager.CONFIG.dayDuration * vanillaHalfDuration));
             else
-                ((ClientWorld) world).setDayTime((long) (days * vanillaDuration + ((realWorldTimeClient % OpticManager.CONFIG
+                ((ClientLevel) world).setDayTime((long) (days * vanillaDuration + ((realWorldTimeClient % OpticManager.CONFIG
                         .getTotalDayDuration()) - OpticManager.CONFIG.dayDuration) / (float) OpticManager.CONFIG.nightDuration * vanillaHalfDuration + vanillaHalfDuration));
-            ((ClientWorld) world).setGameTime(world.getGameTime() + expectedWorldTime - world.getDayTime());
+            ((ClientLevel) world).setGameTime(world.getGameTime() + expectedWorldTime - world.getDayTime());
         } else
             assignTimeClient(world.getDayTime());
         lastWorldTimeClient = world.getDayTime();
@@ -101,7 +101,7 @@ public class OpticEventHandler {
     @SubscribeEvent
     public void tick(WorldTickEvent event) {
         if (event.phase == Phase.START) {
-            World world = event.world;
+            Level world = event.world;
             
             if (!shouldAffectWorld(world))
                 return;
@@ -111,10 +111,10 @@ public class OpticEventHandler {
                 realWorldTime++;
                 int days = (int) (realWorldTime / OpticManager.CONFIG.getTotalDayDuration());
                 if (isDay(realWorldTime, OpticManager.CONFIG.dayDuration, OpticManager.CONFIG.nightDuration))
-                    ((ServerWorld) world).setDayTime(days * vanillaDuration + (long) ((realWorldTime % OpticManager.CONFIG
+                    ((ServerLevel) world).setDayTime(days * vanillaDuration + (long) ((realWorldTime % OpticManager.CONFIG
                             .getTotalDayDuration()) / (float) OpticManager.CONFIG.dayDuration * vanillaHalfDuration));
                 else
-                    ((ServerWorld) world).setDayTime((long) (days * vanillaDuration + ((realWorldTime % OpticManager.CONFIG
+                    ((ServerLevel) world).setDayTime((long) (days * vanillaDuration + ((realWorldTime % OpticManager.CONFIG
                             .getTotalDayDuration()) - OpticManager.CONFIG.dayDuration) / (float) OpticManager.CONFIG.nightDuration * vanillaHalfDuration + vanillaHalfDuration));
             } else
                 assignTime(world.getDayTime());
@@ -142,7 +142,7 @@ public class OpticEventHandler {
     }
     
     public static boolean shouldHideNames(Entity entity) {
-        return !OpticManager.CONFIG.renderPlayerNameTag && entity instanceof PlayerEntity;
+        return !OpticManager.CONFIG.renderPlayerNameTag && entity instanceof Player;
     }
     
 }
