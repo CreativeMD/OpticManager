@@ -1,0 +1,6 @@
+{
+	"config.opticmanager.day-brightness.commment": "광도 값을 계산하는 데 사용됩니다.\n몬스터 생성 효과가 있습니다.",
+	"config.opticmanager.night-brightness.commment": "광도 값을 계산하는 데 사용됩니다.\n몬스터 생성 효과가 있습니다.",
+	"config.opticmanager.day-brightness-client.commment": "클라이언트 측만 해당됩니다.\n몬스터 생성에는 영향을 미치지 않습니다.",
+	"config.opticmanager.night-brightness-client.commment": "클라이언트 측만 해당됩니다.\n몬스터 생성에는 영향을 미치지 않습니다."
+}
