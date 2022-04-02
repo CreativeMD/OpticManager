@@ -6,7 +6,7 @@ license="GNU General Public License v3.0"
 
 [[mods]]
 	modId="opticmanager"
-	version="1.2.0"
+	version="${file.jarVersion}"
 	displayName="OpticManager"
 	displayURL="https://www.curseforge.com/minecraft/mc-mods/opticmanager"
 	authors=["CreativeMD"]
