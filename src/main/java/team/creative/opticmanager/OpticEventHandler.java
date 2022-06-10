@@ -3,11 +3,9 @@ package team.creative.opticmanager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
@@ -56,7 +54,7 @@ public class OpticEventHandler {
     }
     
     public boolean shouldAffectWorld(Level world) {
-        return world.dimension().location().equals(DimensionType.OVERWORLD_LOCATION.location()) && world.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT);
+        return world.dimension().location().equals(BuiltinDimensionTypes.OVERWORLD.location()) && world.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT);
     }
     
     @SubscribeEvent
@@ -131,14 +129,14 @@ public class OpticEventHandler {
         Minecraft mc = Minecraft.getInstance();
         if (OpticManager.CONFIG.overrideBrightness) {
             if (event.phase == Phase.START) {
-                defaultGammaSetting = mc.options.gamma;
-                mc.options.gamma = OpticManager.CONFIG.getRealBrightness();
+                defaultGammaSetting = mc.options.gamma().get();
+                mc.options.gamma().set(OpticManager.CONFIG.getRealBrightness());
             } else
-                mc.options.gamma = defaultGammaSetting;
+                mc.options.gamma().set(defaultGammaSetting);
         }
         
         if (event.phase == Phase.END)
-            mc.options.chatVisibility = OpticManager.CONFIG.visibility;
+            mc.options.chatVisibility().set(OpticManager.CONFIG.visibility);
     }
     
 }
