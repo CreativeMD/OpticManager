@@ -141,8 +141,4 @@ public class OpticEventHandler {
             mc.options.chatVisibility = OpticManager.CONFIG.visibility;
     }
     
-    public static boolean shouldHideNames(Entity entity) {
-        return !OpticManager.CONFIG.renderPlayerNameTag && entity instanceof Player;
-    }
-    
 }
