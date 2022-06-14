@@ -1,0 +1,32 @@
+{
+    "schemaVersion": 1,
+    "id": "opticmanager",
+    "version": "${version}",
+    "name": "OpticManager (Fabric)",
+    "description": "",
+    "authors": [
+        "CreativeMD"
+    ],
+    "contact": {
+    },
+    "license": "GNU LGPL v2.1",
+    "icon": "opticmanager.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "team.creative.opticmanager.OpticManager"
+        ],
+        "client": [
+            "team.creative.opticmanager.OpticManager"
+        ]
+    },
+    "mixins": [
+        "opticmanager.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.14.0",
+        "fabric": "*",
+        "minecraft": "1.19",
+        "creativecore": ">=2.6.5"
+    }
+}

@@ -3,19 +3,20 @@ package team.creative.opticmanager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import team.creative.creativecore.client.CreativeCoreClient;
+import team.creative.creativecore.CreativeCore;
+import team.creative.creativecore.ICreativeLoader;
+import team.creative.creativecore.client.ClientLoader;
+import team.creative.creativecore.common.CommonLoader;
 import team.creative.creativecore.common.config.holder.CreativeConfigRegistry;
+import team.creative.opticmanager.client.OpticManagerClient;
 
 @Mod(OpticManager.MODID)
-public class OpticManager {
+public class OpticManager implements CommonLoader, ClientLoader {
     
     public static final Logger LOGGER = LogManager.getLogger(OpticManager.MODID);
     public static final String MODID = "opticmanager";
@@ -23,19 +24,24 @@ public class OpticManager {
     public static OpticEventHandler EVENTS;
     
     public OpticManager() {
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::client));
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
+        ICreativeLoader loader = CreativeCore.loader();
+        loader.register(this);
+        loader.registerClient(this);
     }
     
-    @OnlyIn(value = Dist.CLIENT)
-    private void client(final FMLClientSetupEvent event) {
-        CreativeCoreClient.registerClientConfig(MODID);
-        EVENTS.initClient();
-    }
-    
-    private void init(final FMLCommonSetupEvent event) {
+    @Override
+    public void onInitialize() {
+        ICreativeLoader loader = CreativeCore.loader();
         CreativeConfigRegistry.ROOT.registerValue(MODID, CONFIG = new OpticManagerConfig());
-        MinecraftForge.EVENT_BUS.register(EVENTS = new OpticEventHandler());
+        EVENTS = new OpticEventHandler();
+        loader.registerLevelTickStart(EVENTS::levelTick);
+    }
+    
+    @Override
+    @Environment(EnvType.CLIENT)
+    @OnlyIn(value = Dist.CLIENT)
+    public void onInitializeClient() {
+        OpticManagerClient.onInitializeClient();
     }
     
 }
