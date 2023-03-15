@@ -16,7 +16,7 @@ public class OpticManagerClient {
         ICreativeLoader loader = CreativeCore.loader();
         loader.registerClientTick(EVENT::tick);
         loader.registerClientRenderStart(EVENT::renderStart);
-        loader.registerClientRender(EVENT::render);
+        loader.registerClientRenderGui(EVENT::render);
     }
     
 }
