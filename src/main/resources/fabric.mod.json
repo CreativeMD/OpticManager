@@ -1,14 +1,14 @@
 {
     "schemaVersion": 1,
-	"id": "${mod_id}",
-	"version": "${mod_version}",
-	"name": "${mod_name}",
-	"description": "${mod_description}",
+    "id": "opticmanager",
+    "version": "1.3.2",
+    "name": "OpticManager",
+    "description": "Sync client side configurations. Modify length of day and night.",
     "authors": [
         "CreativeMD"
     ],
-    "license": "${mod_license}",
-	"icon": "${mod_id}.png",
+    "license": "LGPL-3.0-only",
+    "icon": "opticmanager.png",
     "environment": "*",
     "entrypoints": {
         "main": [
@@ -22,9 +22,9 @@
         "opticmanager.mixins.json"
     ],
     "depends": {
-		"fabricloader": "${loader_version_range}",
-		"fabric-api": "*",
-		"minecraft": "${minecraft_version_range}",
-		"creativecore": ">=${creativecore_version}"
-	}
+        "fabricloader": ">=0.14.0",
+        "fabric-api": "*",
+        "minecraft": ">=1.20",
+        "creativecore": ">=2.10.22"
+    }
 }
