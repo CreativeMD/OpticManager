@@ -5,9 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.common.Mod;
 import team.creative.creativecore.CreativeCore;
 import team.creative.creativecore.ICreativeLoader;
 import team.creative.creativecore.client.ClientLoader;
