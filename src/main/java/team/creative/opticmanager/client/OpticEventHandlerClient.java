@@ -60,11 +60,11 @@ public class OpticEventHandlerClient {
         }
     }
     
-    public void render() {
+    public void render(Object o) {
         Minecraft mc = Minecraft.getInstance();
         if (OpticManager.CONFIG.overrideBrightness)
             mc.options.gamma().set(defaultGammaSetting);
         mc.options.chatVisibility().set(OpticManager.CONFIG.visibility);
     }
-    
+
 }
