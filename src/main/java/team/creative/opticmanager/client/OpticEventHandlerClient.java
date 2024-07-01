@@ -60,7 +60,7 @@ public class OpticEventHandlerClient {
         }
     }
     
-    public void render() {
+    public void render(Object object) {
         Minecraft mc = Minecraft.getInstance();
         if (OpticManager.CONFIG.overrideBrightness)
             mc.options.gamma().set(defaultGammaSetting);
