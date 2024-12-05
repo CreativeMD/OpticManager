@@ -4,6 +4,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import team.creative.opticmanager.OpticEventHandler;
@@ -12,6 +14,10 @@ import team.creative.opticmanager.OpticManager;
 @Environment(EnvType.CLIENT)
 @OnlyIn(Dist.CLIENT)
 public class OpticEventHandlerClient {
+    
+    public static boolean shouldAffectWorld(Level level) {
+        return level.dimension().location().equals(BuiltinDimensionTypes.OVERWORLD.location());
+    }
     
     public long lastWorldTimeClient = -1;
     public long lastTotalWorldTimeClient = -1;
@@ -23,19 +29,19 @@ public class OpticEventHandlerClient {
         Minecraft mc = Minecraft.getInstance();
         if (mc.level != null) {
             ClientLevel level = mc.level;
-            if (!OpticEventHandler.shouldAffectWorld(level))
+            if (!shouldAffectWorld(level))
                 return;
             long expectedWorldTime = lastWorldTimeClient + 1L;
             if (expectedWorldTime == level.getDayTime()) {
                 realWorldTimeClient++;
                 int days = (int) (realWorldTimeClient / OpticManager.CONFIG.getTotalDayDuration());
                 if (OpticEventHandler.isDay(realWorldTimeClient, OpticManager.CONFIG.dayDuration, OpticManager.CONFIG.nightDuration))
-                    level.setDayTime(days * OpticEventHandler.vanillaDuration + (long) ((realWorldTimeClient % OpticManager.CONFIG
+                    level.setDayTimePerTick(days * OpticEventHandler.vanillaDuration + (long) ((realWorldTimeClient % OpticManager.CONFIG
                             .getTotalDayDuration()) / (float) OpticManager.CONFIG.dayDuration * OpticEventHandler.vanillaHalfDuration));
                 else
-                    level.setDayTime((long) (days * OpticEventHandler.vanillaDuration + ((realWorldTimeClient % OpticManager.CONFIG
+                    level.setDayTimePerTick((long) (days * OpticEventHandler.vanillaDuration + ((realWorldTimeClient % OpticManager.CONFIG
                             .getTotalDayDuration()) - OpticManager.CONFIG.dayDuration) / (float) OpticManager.CONFIG.nightDuration * OpticEventHandler.vanillaHalfDuration + OpticEventHandler.vanillaHalfDuration));
-                level.setGameTime(level.getGameTime() + expectedWorldTime - level.getDayTime());
+                level.getLevelData().setGameTime(level.getGameTime() + expectedWorldTime - level.getDayTime());
             } else
                 assignTimeClient(level.getDayTime());
             lastWorldTimeClient = level.getDayTime();

@@ -2,7 +2,6 @@ package team.creative.opticmanager;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 
 public class OpticEventHandler {
@@ -10,7 +9,7 @@ public class OpticEventHandler {
     public static final long vanillaDuration = 24000;
     public static final long vanillaHalfDuration = 12000;
     
-    public static boolean shouldAffectWorld(Level world) {
+    public static boolean shouldAffectWorld(ServerLevel world) {
         return world.dimension().location().equals(BuiltinDimensionTypes.OVERWORLD.location()) && world.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT);
     }
     
