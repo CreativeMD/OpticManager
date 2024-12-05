@@ -1,7 +1,7 @@
 {
     "schemaVersion": 1,
     "id": "opticmanager",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "name": "OpticManager",
     "description": "Sync client side configurations. Modify length of day and night.",
     "authors": [
@@ -22,9 +22,9 @@
         "opticmanager.mixins.json"
     ],
     "depends": {
-        "fabricloader": ">=0.15.11",
+        "fabricloader": ">=0.16.9",
         "fabric-api": "*",
-        "minecraft": ">=1.21",
-        "creativecore": ">=2.10.22"
+        "minecraft": ">=1.21.4",
+        "creativecore": ">=2.12.22"
     }
 }

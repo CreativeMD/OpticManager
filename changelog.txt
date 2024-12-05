@@ -1,2 +1,5 @@
+1.3.3
+Fixed several issues related to day and night duration
+
 1.3.2
 Fixed fabric dependency

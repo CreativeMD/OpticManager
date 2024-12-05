@@ -6,7 +6,7 @@ license="LGPL-3.0-only"
 [[mods]]
     modId="opticmanager"
     logoFile="opticmanager.png"
-    version="1.3.2"
+    version="1.3.3"
     displayName="OpticManager"
     displayURL="https://modrinth.com/mod/opticmanager"
     authors="CreativeMD"
@@ -31,7 +31,7 @@ license="LGPL-3.0-only"
    type="required"
    ordering="NONE"
    side="BOTH"
-   versionRange="[2.10.22,)"
+   versionRange="[2.12.22,)"
 
 [[mixins]]
    config="opticmanager.mixins.json"
