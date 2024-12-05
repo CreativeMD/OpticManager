@@ -8,6 +8,7 @@
     "mixins": [
     ],
     "client": [
+        "ClientLevelAccessor",
         "EntityRendererMixin"
     ],
     "minVersion": "0.8"
