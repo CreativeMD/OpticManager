@@ -1,2 +1,5 @@
+1.3.3
+Adapted to CreativeCore 2.13.0
+
 1.3.2
 Fixed fabric dependency
