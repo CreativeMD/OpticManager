@@ -1,19 +1,13 @@
 package team.creative.opticmanager.client;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import team.creative.opticmanager.OpticEventHandler;
 import team.creative.opticmanager.OpticManager;
 import team.creative.opticmanager.mixin.ClientLevelAccessor;
 
-@Environment(EnvType.CLIENT)
-@OnlyIn(Dist.CLIENT)
 public class OpticEventHandlerClient {
     
     public static boolean shouldAffectWorld(Level level) {

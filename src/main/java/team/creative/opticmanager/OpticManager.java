@@ -5,8 +5,6 @@ import org.apache.logging.log4j.Logger;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.common.Mod;
 import team.creative.creativecore.CreativeCore;
 import team.creative.creativecore.ICreativeLoader;
@@ -39,7 +37,6 @@ public class OpticManager implements CommonLoader, ClientLoader {
     
     @Override
     @Environment(EnvType.CLIENT)
-    @OnlyIn(value = Dist.CLIENT)
     public void onInitializeClient() {
         OpticManagerClient.onInitializeClient();
     }
