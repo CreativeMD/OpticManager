@@ -1,7 +1,7 @@
 {
     "schemaVersion": 1,
     "id": "opticmanager",
-    "version": "1.3.4",
+    "version": "1.3.5",
     "name": "OpticManager",
     "description": "Sync client side configurations. Modify length of day and night.",
     "authors": [
@@ -25,6 +25,6 @@
         "fabricloader": ">=0.16.14",
         "fabric-api": "*",
         "minecraft": ">=1.21.6",
-        "creativecore": ">=2.13.0"
+        "creativecore": ">=2.14.0"
     }
 }
