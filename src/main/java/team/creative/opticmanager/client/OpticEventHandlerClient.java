@@ -11,7 +11,7 @@ import team.creative.opticmanager.mixin.ClientLevelAccessor;
 public class OpticEventHandlerClient {
     
     public static boolean shouldAffectWorld(Level level) {
-        return level.dimension().location().equals(BuiltinDimensionTypes.OVERWORLD.location()) && level instanceof ClientLevelAccessor c && c.getTickDayTime();
+        return level.dimension().identifier().equals(BuiltinDimensionTypes.OVERWORLD.identifier()) && level instanceof ClientLevelAccessor c && c.getTickDayTime();
     }
     
     public long lastWorldTimeClient = -1;
