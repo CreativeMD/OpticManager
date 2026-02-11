@@ -7,6 +7,11 @@
     "authors": [
         "CreativeMD"
     ],
+    "contact": {
+        "sources": "https://github.com/CreativeMD/OpticManager",
+        "homepage": "https://modrinth.com/mod/opticmanager",
+        "issues": "https://github.com/CreativeMD/OpticManager/issues"
+    },
     "license": "LGPL-3.0-only",
     "icon": "opticmanager.png",
     "environment": "*",
