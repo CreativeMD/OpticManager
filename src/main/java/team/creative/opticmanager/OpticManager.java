@@ -3,8 +3,6 @@ package team.creative.opticmanager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.neoforged.fml.common.Mod;
 import team.creative.creativecore.CreativeCore;
 import team.creative.creativecore.ICreativeLoader;
@@ -19,7 +17,6 @@ public class OpticManager implements CommonLoader, ClientLoader {
     public static final Logger LOGGER = LogManager.getLogger(OpticManager.MODID);
     public static final String MODID = "opticmanager";
     public static OpticManagerConfig CONFIG;
-    public static OpticEventHandler EVENTS;
     
     public OpticManager() {
         ICreativeLoader loader = CreativeCore.loader();
@@ -29,14 +26,10 @@ public class OpticManager implements CommonLoader, ClientLoader {
     
     @Override
     public void onInitialize() {
-        ICreativeLoader loader = CreativeCore.loader();
         CreativeConfigRegistry.ROOT.registerValue(MODID, CONFIG = new OpticManagerConfig());
-        EVENTS = new OpticEventHandler();
-        loader.registerLevelTickStart(EVENTS::levelTick);
     }
     
     @Override
-    @Environment(EnvType.CLIENT)
     public void onInitializeClient() {
         OpticManagerClient.onInitializeClient();
     }

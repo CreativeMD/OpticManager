@@ -24,12 +24,4 @@ public class OpticManagerConfig {
         return brightness;
     }
     
-    @CreativeConfig
-    public int dayDuration = 12000;
-    @CreativeConfig
-    public int nightDuration = 12000;
-    
-    public int getTotalDayDuration() {
-        return dayDuration + nightDuration;
-    }
 }
