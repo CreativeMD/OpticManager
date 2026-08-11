@@ -5,7 +5,7 @@ license="LGPL-3.0-only"
 
 [[mods]]
     modId="opticmanager"
-    logoFile="opticmanager.png"
+    iconFile="opticmanager.png"
     version="1.3.6"
     displayName="OpticManager"
     displayURL="https://modrinth.com/mod/opticmanager"
